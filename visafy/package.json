@@ -1,7 +1,7 @@
 {
   "name": "visafy",
   "version": "1.0.0",
-  "description": "Visa document processing website",
+  "description": "Visa document processing platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
