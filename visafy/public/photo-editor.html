@@ -4,42 +4,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Editor | Visafy</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">Visafy</div>
+        <div class="logo"><a href="/index.html">Visafy ✈️</a></div>
         <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/photo-editor.html" class="active">Photo Editor</a></li>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/photo-editor.html">Photo Editor</a></li>
             <li><a href="/pdf-tools.html">PDF Tools</a></li>
             <li><a href="/country-checklist.html">Checklists</a></li>
         </ul>
     </nav>
 
     <main class="container">
-        <h2>Passport Photo Editor</h2>
-        <p>Upload a photo to crop and resize it for your visa application.</p>
-        
-        <div class="tool-panel">
-            <div class="upload-area">
-                <input type="file" id="photoUpload" accept="image/png, image/jpeg">
-                <label for="photoUpload" class="btn">Upload Image</label>
+        <div style="margin-bottom: 2rem;">
+            <h2>Passport Photo Editor</h2>
+            <p>Crop and format photos to meet exact embassy specifications.</p>
+        </div>
+
+        <div class="upload-box" id="dropZone">
+            <div class="upload-icon">📁</div>
+            <h3>Click or Drag & Drop Photo Here</h3>
+            <p>Supports JPG, PNG</p>
+            <input type="file" id="photoInput" accept="image/jpeg, image/png">
+        </div>
+
+        <div class="editor-layout" id="editorSection" style="display: none;">
+            <div class="cropper-container-wrapper">
+                <img id="imageToCrop" src="" alt="Picture">
             </div>
             
-            <div class="editor-workspace">
-                <div class="placeholder-box">
-                    <p>Image Workspace</p>
-                    <small>Frontend JS canvas logic will go here</small>
+            <div class="editor-sidebar">
+                <div class="form-group">
+                    <label>Select Country Format</label>
+                    <select id="countryPreset" class="form-control">
+                        <option value="600x600" data-width="600" data-height="600">USA (600x600 px)</option>
+                        <option value="354x354" data-width="354" data-height="354">UK (354x354 px)</option>
+                        <option value="413x531" data-width="413" data-height="531">Schengen (413x531 px)</option>
+                        <option value="350x350" data-width="350" data-height="350">India (350x350 px)</option>
+                        <option value="420x540" data-width="420" data-height="540">Canada (420x540 px)</option>
+                        <option value="413x531" data-width="413" data-height="531">Australia (413x531 px)</option>
+                        <option value="300x369" data-width="300" data-height="369">Dubai (300x369 px)</option>
+                        <option value="400x514" data-width="400" data-height="514">Singapore (400x514 px)</option>
+                    </select>
                 </div>
-            </div>
-            
-            <div class="actions">
-                <button class="btn success">Download Photo</button>
+
+                <div id="sizeDisplay" style="margin-bottom: 1rem; font-weight: 500; color: var(--primary);">
+                    Size: 600 x 600 px
+                </div>
+
+                <button class="btn btn-outline" id="applyDimBtn" style="width: 100%; margin-bottom: 1rem;">📐 Apply Dimensions</button>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+                    <button class="btn btn-secondary" id="rotLeftBtn">↺ Left</button>
+                    <button class="btn btn-secondary" id="rotRightBtn">↻ Right</button>
+                    <button class="btn btn-secondary" id="zoomInBtn">🔍 +</button>
+                    <button class="btn btn-secondary" id="zoomOutBtn">🔍 -</button>
+                </div>
+
+                <button class="btn btn-secondary" id="whiteBgBtn" style="width: 100%; margin-bottom: 1rem;">⬜ Force White Background</button>
+                
+                <button class="btn btn-primary" id="downloadBtn" style="width: 100%; margin-top: auto;">💾 Download Photo</button>
             </div>
         </div>
     </main>
 
-    <script src="/js/main.js"></script>
+    <footer>
+        <p>&copy; 2026 Visafy. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        let cropper;
+        const image = document.getElementById('imageToCrop');
+        const fileInput = document.getElementById('photoInput');
+        const dropZone = document.getElementById('dropZone');
+        const editorSection = document.getElementById('editorSection');
+        const countryPreset = document.getElementById('countryPreset');
+        const sizeDisplay = document.getElementById('sizeDisplay');
+        
+        let targetWidth = 600;
+        let targetHeight = 600;
+        let forceWhiteBg = false;
+
+        // Drag and Drop handlers
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', function() {
+            handleFiles(this.files);
+        });
+
+        function handleFiles(files) {
+            if (files.length === 0) return;
+            const file = files[0];
+            if (!file.type.startsWith('image/')) {
+                window.showToast('Please upload an image file.', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                image.src = e.target.result;
+                dropZone.style.display = 'none';
+                editorSection.style.display = 'flex';
+                initCropper();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function initCropper() {
+            if (cropper) {
+                cropper.destroy();
+            }
+            cropper = new Cropper(image, {
+                aspectRatio: targetWidth / targetHeight,
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 0.8,
+                restore: false,
+                guides: true,
+                center: true,
+                highlight: false,
+                cropBoxMovable: true,
+                cropBoxResizable: true,
+                toggleDragModeOnDblclick: false,
+            });
+            window.showToast('Image loaded successfully');
+        }
+
+        // Controls
+        document.getElementById('applyDimBtn').addEventListener('click', () => {
+            const selected = countryPreset.options[countryPreset.selectedIndex];
+            targetWidth = parseInt(selected.getAttribute('data-width'));
+            targetHeight = parseInt(selected.getAttribute('data-height'));
+            sizeDisplay.textContent = `Size: ${targetWidth} x ${targetHeight} px`;
+            
+            if (cropper) {
+                cropper.setAspectRatio(targetWidth / targetHeight);
+                window.showToast(`Ratio set to ${targetWidth}x${targetHeight}`);
+            }
+        });
+
+        countryPreset.addEventListener('change', () => {
+            const selected = countryPreset.options[countryPreset.selectedIndex];
+            sizeDisplay.textContent = `Size: ${selected.getAttribute('data-width')} x ${selected.getAttribute('data-height')} px`;
+        });
+
+        document.getElementById('rotLeftBtn').addEventListener('click', () => cropper && cropper.rotate(-90));
+        document.getElementById('rotRightBtn').addEventListener('click', () => cropper && cropper.rotate(90));
+        document.getElementById('zoomInBtn').addEventListener('click', () => cropper && cropper.zoom(0.1));
+        document.getElementById('zoomOutBtn').addEventListener('click', () => cropper && cropper.zoom(-0.1));
+
+        document.getElementById('whiteBgBtn').addEventListener('click', function() {
+            forceWhiteBg = true;
+            this.classList.remove('btn-secondary');
+            this.classList.add('btn-primary');
+            this.textContent = '✅ White Background Active';
+            window.showToast('White background will be applied on download');
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            if (!cropper) return;
+            window.showSpinner();
+
+            setTimeout(() => {
+                const canvas = cropper.getCroppedCanvas({
+                    width: targetWidth,
+                    height: targetHeight,
+                    imageSmoothingEnabled: true,
+                    imageSmoothingQuality: 'high',
+                });
+
+                if (forceWhiteBg) {
+                    const finalCanvas = document.createElement('canvas');
+                    finalCanvas.width = targetWidth;
+                    finalCanvas.height = targetHeight;
+                    const ctx = finalCanvas.getContext('2d');
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, targetWidth, targetHeight);
+                    ctx.drawImage(canvas, 0, 0);
+                    triggerDownload(finalCanvas);
+                } else {
+                    triggerDownload(canvas);
+                }
+            }, 100);
+        });
+
+        function triggerDownload(canvas) {
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `visa_photo_${targetWidth}x${targetHeight}.jpg`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                window.hideSpinner();
+                window.showToast('Photo downloaded successfully!');
+            }, 'image/jpeg', 0.95);
+        }
+    </script>
 </body>
 </html>
