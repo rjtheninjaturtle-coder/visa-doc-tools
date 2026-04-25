@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unlock PDF - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="unlockPdf">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Unlock PDF</h1><p>Decrypt a Visafy vault back into the original PDF.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload Vault</h2>
+        <div id="unlockDrop" class="upload-zone"><div><strong>Choose a .visafy file</strong><span>Created by the Protect PDF tool</span></div></div>
+        <input id="unlockInput" class="hidden-input" type="file" accept=".visafy,application/octet-stream,application/json">
+        <div id="unlockList" class="file-list"></div>
+        <div class="controls">
+          <div class="note">This unlocks Visafy encrypted vaults. Browser-only decryption of arbitrary native password-protected PDFs is not supported by the allowed libraries.</div>
+          <div class="form-group"><label for="unlockPassword">Password</label><input id="unlockPassword" type="password" autocomplete="current-password"></div>
+          <button id="unlockButton" class="btn" type="button">Unlock PDF</button>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Status</h2><div class="status-box"><strong id="unlockStatus">No vault selected.</strong><span>Wrong passwords show an error toast.</span></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

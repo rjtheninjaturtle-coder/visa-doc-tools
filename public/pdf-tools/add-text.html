@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Text to PDF - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="addTextPdf">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Add Text to PDF</h1><p>Place text on a selected page using PDF coordinates.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload PDF</h2>
+        <div id="addTextDrop" class="upload-zone"><div><strong>Choose one PDF</strong><span>Then enter text and coordinates</span></div></div>
+        <input id="addTextInput" class="hidden-input" type="file" accept=".pdf,application/pdf">
+        <div id="addTextList" class="file-list"></div>
+        <div class="controls">
+          <div class="form-group"><label for="addTextContent">Text content</label><textarea id="addTextContent">Approved copy</textarea></div>
+          <div class="form-row"><div class="form-group"><label for="addTextPage">Page number</label><input id="addTextPage" type="number" min="1" value="1"></div><div class="form-group"><label for="addTextSize">Font size</label><input id="addTextSize" type="number" min="6" value="18"></div></div>
+          <div class="form-row"><div class="form-group"><label for="addTextX">X position</label><input id="addTextX" type="number" min="0" max="600" value="72"></div><div class="form-group"><label for="addTextY">Y position</label><input id="addTextY" type="number" min="0" max="800" value="720"></div></div>
+          <div class="form-group"><label for="addTextColor">Color</label><input id="addTextColor" type="color" value="#1a237e"></div>
+          <button id="addTextButton" class="btn" type="button">Add Text</button>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Status</h2><div class="status-box"><strong id="addTextStatus">No PDF selected.</strong><span>PDF coordinates start at the bottom-left corner.</span></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

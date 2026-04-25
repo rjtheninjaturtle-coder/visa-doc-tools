@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Filters - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="filtersImage">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Filters</h1><p>Adjust brightness, contrast, saturation, and blur in real time.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload Image</h2>
+        <div id="filtersDrop" class="upload-zone"><div><strong>Choose an image</strong><span>Use sliders for live preview</span></div></div>
+        <input id="filtersInput" class="hidden-input" type="file" accept="image/*">
+        <div class="controls">
+          <div class="form-group"><label for="brightness">Brightness: <span id="brightnessValue">0</span></label><input id="brightness" type="range" min="-100" max="100" value="0"></div>
+          <div class="form-group"><label for="contrast">Contrast: <span id="contrastValue">0</span></label><input id="contrast" type="range" min="-100" max="100" value="0"></div>
+          <div class="form-group"><label for="saturation">Saturation: <span id="saturationValue">0</span></label><input id="saturation" type="range" min="-100" max="100" value="0"></div>
+          <div class="form-group"><label for="blur">Blur: <span id="blurValue">0px</span></label><input id="blur" type="range" min="0" max="10" value="0"></div>
+          <button id="filtersDownload" class="btn" type="button">Download Image</button>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Preview</h2><div class="preview-area"><canvas id="filtersCanvas"></canvas></div><div class="status-box"><strong id="filtersStatus">No image selected.</strong></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

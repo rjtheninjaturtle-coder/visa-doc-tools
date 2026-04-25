@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Color - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="backgroundColor">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Background Color</h1><p>Replace light or edge-connected photo backgrounds with a selected color.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload Image</h2>
+        <div id="backgroundDrop" class="upload-zone"><div><strong>Choose an image</strong><span>Best for white or light backgrounds</span></div></div>
+        <input id="backgroundInput" class="hidden-input" type="file" accept="image/*">
+        <div class="controls">
+          <div class="form-group"><label for="backgroundColor">New background color</label><input id="backgroundColor" type="color" value="#ffffff"></div>
+          <div class="button-row"><button id="backgroundButton" class="btn" type="button">Change Background</button><button id="backgroundDownload" class="btn secondary" type="button">Download</button></div>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Preview</h2><div class="preview-area"><canvas id="backgroundCanvas"></canvas></div><div class="status-box"><strong id="backgroundStatus">No image selected.</strong></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

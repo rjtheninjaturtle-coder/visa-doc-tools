@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotate PDF - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="rotatePdf">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Rotate PDF</h1><p>Preview the first page, choose pages, and rotate them by 90, 180, or 270 degrees.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload PDF</h2>
+        <div id="rotateDrop" class="upload-zone"><div><strong>Choose one PDF</strong><span>First page thumbnail appears after upload</span></div></div>
+        <input id="rotateInput" class="hidden-input" type="file" accept=".pdf,application/pdf">
+        <div id="rotateList" class="file-list"></div>
+        <div class="controls">
+          <div class="form-group"><label>Pages</label><div class="radio-row"><label><input type="radio" name="rotateMode" value="all" checked> All pages</label><label><input type="radio" name="rotateMode" value="specific"> Specific pages</label></div></div>
+          <div class="form-group"><label for="rotatePages">Specific pages</label><input id="rotatePages" type="text" placeholder="1,3,5-7"></div>
+          <div class="form-group"><label for="rotateAngle">Rotation angle</label><select id="rotateAngle"><option value="90">90 degrees</option><option value="180">180 degrees</option><option value="270">270 degrees</option></select></div>
+          <button id="rotateButton" class="btn" type="button">Rotate PDF</button>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Preview</h2><div id="rotatePreview" class="preview-area">Upload a PDF to preview page 1.</div><div class="status-box"><strong id="rotateStatus">No PDF selected.</strong></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

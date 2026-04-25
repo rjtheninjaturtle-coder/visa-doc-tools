@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JPG to PDF - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="jpgToPdf">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>JPG to PDF</h1><p>Upload JPG or PNG images and place each on its own PDF page.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload Images</h2>
+        <div id="jpgPdfDrop" class="upload-zone"><div><strong>Choose JPG or PNG files</strong><span>Multiple images accepted</span></div></div>
+        <input id="jpgPdfInput" class="hidden-input" type="file" accept="image/jpeg,image/png" multiple>
+        <div id="jpgPdfList" class="file-list"></div>
+        <div class="controls"><button id="jpgPdfButton" class="btn" type="button">Create PDF</button></div>
+      </div>
+      <div class="preview-panel"><h2>Thumbnails</h2><div id="jpgPdfPreview" class="thumbnail-grid"></div><div class="status-box"><strong id="jpgPdfStatus">No images selected.</strong></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

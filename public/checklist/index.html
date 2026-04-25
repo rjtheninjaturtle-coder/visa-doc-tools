@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visa Checklist - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="checklist">
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="logo" href="../index.html">Visafy ✈️</a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#pdf-tools">PDF Tools</a>
+        <a href="../index.html#photo-tools">Photo Tools</a>
+        <a href="index.html">Visa Checklist</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="tool-hero">
+      <div class="container">
+        <h1>Visa Checklist</h1>
+        <p>Choose a country and visa type, track document progress, print the checklist, or download it as a PDF.</p>
+      </div>
+    </section>
+    <section class="tool-shell">
+      <div class="container tool-layout">
+        <div class="tool-panel">
+          <h2>Generate Checklist</h2>
+          <div class="controls">
+            <div class="form-group">
+              <label for="checklistCountry">Country</label>
+              <select id="checklistCountry">
+                <option>USA</option>
+                <option>UK</option>
+                <option>Schengen</option>
+                <option>India</option>
+                <option>Canada</option>
+                <option>Australia</option>
+                <option>Dubai</option>
+                <option>Singapore</option>
+                <option>Japan</option>
+                <option>China</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="checklistVisaType">Visa type</label>
+              <select id="checklistVisaType">
+                <option>Tourist</option>
+                <option>Business</option>
+                <option>Student</option>
+                <option>Work</option>
+              </select>
+            </div>
+            <button id="generateChecklist" class="btn" type="button">Generate Checklist</button>
+          </div>
+        </div>
+        <div class="checklist-panel">
+          <h2>Progress</h2>
+          <div class="progress-track"><div id="checklistProgressFill" class="progress-fill"></div></div>
+          <div class="status-box"><strong id="checklistProgressText">0 of 0 complete (0%)</strong></div>
+          <div id="checklistOutput"></div>
+          <div id="checklistActions" class="button-row" style="display:none; margin-top: 20px;">
+            <button id="downloadChecklist" class="btn" type="button">Download PDF</button>
+            <button id="printChecklist" class="btn secondary" type="button">Print</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2025 Visafy. All rights reserved.</div>
+  </footer>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

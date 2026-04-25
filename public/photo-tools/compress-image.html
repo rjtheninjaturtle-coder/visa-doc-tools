@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compress Image - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="compressImage">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Compress Image</h1><p>Choose JPEG quality and download a smaller image.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload Image</h2>
+        <div id="compressImageDrop" class="upload-zone"><div><strong>Choose an image</strong><span>Exports compressed JPEG</span></div></div>
+        <input id="compressImageInput" class="hidden-input" type="file" accept="image/*">
+        <div class="controls">
+          <div class="form-group"><label for="imageQuality">Quality: <span id="imageQualityValue">70%</span></label><input id="imageQuality" type="range" min="10" max="100" value="70"></div>
+          <div class="button-row"><button id="compressImageButton" class="btn" type="button">Compress</button><button id="compressImageDownload" class="btn secondary" type="button" disabled>Download</button></div>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Preview</h2><div class="metric-grid"><div class="metric"><span>Original</span><strong id="compressImageOriginal">-</strong></div><div class="metric"><span>New</span><strong id="compressImageNew">-</strong></div></div><div class="preview-area"><canvas id="compressImageCanvas"></canvas></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merge PDF - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="mergePdf">
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="logo" href="../index.html">Visafy ✈️</a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#pdf-tools">PDF Tools</a>
+        <a href="../index.html#photo-tools">Photo Tools</a>
+        <a href="../checklist/index.html">Visa Checklist</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Merge PDF</h1><p>Upload two or more PDFs and combine every page into one document.</p></div></section>
+    <section class="tool-shell">
+      <div class="container tool-layout">
+        <div class="tool-panel">
+          <h2>Upload PDFs</h2>
+          <div id="mergeDrop" class="upload-zone"><div><strong>Choose PDF files</strong><span>Accepts multiple .pdf files</span></div></div>
+          <input id="mergeInput" class="hidden-input" type="file" accept=".pdf,application/pdf" multiple>
+          <div id="mergeList" class="file-list"></div>
+          <div class="controls"><button id="mergeButton" class="btn" type="button">Merge PDFs</button></div>
+        </div>
+        <div class="preview-panel">
+          <h2>Status</h2>
+          <div class="status-box"><strong id="mergeStatus">No files selected.</strong><span>Merged output downloads as merged.pdf.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

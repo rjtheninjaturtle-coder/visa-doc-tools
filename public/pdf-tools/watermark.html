@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watermark PDF - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="watermarkPdf">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Watermark PDF</h1><p>Add a visible text watermark to every page of a PDF.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload PDF</h2>
+        <div id="watermarkDrop" class="upload-zone"><div><strong>Choose one PDF</strong><span>Watermark is applied to every page</span></div></div>
+        <input id="watermarkInput" class="hidden-input" type="file" accept=".pdf,application/pdf">
+        <div id="watermarkList" class="file-list"></div>
+        <div class="controls">
+          <div class="form-group"><label for="watermarkText">Watermark text</label><input id="watermarkText" type="text" value="VISAFY COPY"></div>
+          <div class="form-group"><label for="watermarkOpacity">Opacity: <span id="watermarkOpacityValue">0.3</span></label><input id="watermarkOpacity" type="range" min="0.1" max="1" step="0.1" value="0.3"></div>
+          <div class="form-group"><label for="watermarkPosition">Position</label><select id="watermarkPosition"><option value="center">Center</option><option value="top-right">Top-Right</option><option value="bottom-left">Bottom-Left</option><option value="bottom-right">Bottom-Right</option></select></div>
+          <button id="watermarkButton" class="btn" type="button">Add Watermark</button>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Status</h2><div class="status-box"><strong id="watermarkStatus">No PDF selected.</strong><span>Output downloads as watermarked.pdf.</span></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

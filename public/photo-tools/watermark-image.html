@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watermark Image - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="watermarkImage">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Watermark Image</h1><p>Add text watermarks to images with nine position choices.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload Image</h2>
+        <div id="watermarkImageDrop" class="upload-zone"><div><strong>Choose an image</strong><span>Watermark updates live</span></div></div>
+        <input id="watermarkImageInput" class="hidden-input" type="file" accept="image/*">
+        <div class="controls">
+          <div class="form-group"><label for="watermarkImageText">Watermark text</label><input id="watermarkImageText" type="text" value="VISAFY"></div>
+          <div class="form-row"><div class="form-group"><label for="watermarkImageSize">Font size</label><input id="watermarkImageSize" type="number" min="8" value="48"></div><div class="form-group"><label for="watermarkImageColor">Color</label><input id="watermarkImageColor" type="color" value="#1a237e"></div></div>
+          <div class="form-group"><label for="watermarkImageOpacity">Opacity: <span id="watermarkImageOpacityValue">40%</span></label><input id="watermarkImageOpacity" type="range" min="10" max="100" value="40"></div>
+          <div class="form-group"><label for="watermarkImagePosition">Position</label><select id="watermarkImagePosition"><option value="top-left">Top Left</option><option value="top-center">Top Center</option><option value="top-right">Top Right</option><option value="middle-left">Middle Left</option><option value="center">Center</option><option value="middle-right">Middle Right</option><option value="bottom-left">Bottom Left</option><option value="bottom-center">Bottom Center</option><option value="bottom-right">Bottom Right</option></select></div>
+          <button id="watermarkImageDownload" class="btn" type="button">Download Image</button>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Preview</h2><div class="preview-area"><canvas id="watermarkImageCanvas"></canvas></div><div class="status-box"><strong id="watermarkImageStatus">No image selected.</strong></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

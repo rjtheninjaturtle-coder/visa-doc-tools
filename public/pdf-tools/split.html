@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split PDF - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="splitPdf">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Split PDF</h1><p>Extract specific pages or ranges into a new PDF.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload PDF</h2>
+        <div id="splitDrop" class="upload-zone"><div><strong>Choose one PDF</strong><span>Then enter pages like 1,3,5-7</span></div></div>
+        <input id="splitInput" class="hidden-input" type="file" accept=".pdf,application/pdf">
+        <div id="splitList" class="file-list"></div>
+        <div class="controls">
+          <div class="form-group"><label for="splitPages">Pages to extract</label><input id="splitPages" type="text" value="1" placeholder="1,3,5-7"></div>
+          <button id="splitButton" class="btn" type="button">Extract Pages</button>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Status</h2><div class="status-box"><strong id="splitStatus">No PDF selected.</strong><span>Output downloads as split.pdf.</span></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

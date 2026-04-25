@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protect PDF - Visafy</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-tool="protectPdf">
+  <header class="site-header"><nav class="navbar"><a class="logo" href="../index.html">Visafy ✈️</a><div class="nav-links"><a href="../index.html">Home</a><a href="../index.html#pdf-tools">PDF Tools</a><a href="../index.html#photo-tools">Photo Tools</a><a href="../checklist/index.html">Visa Checklist</a></div></nav></header>
+  <main>
+    <section class="tool-hero"><div class="container"><h1>Protect PDF</h1><p>Encrypt a PDF into a Visafy vault file using your browser's Web Crypto API.</p></div></section>
+    <section class="tool-shell"><div class="container tool-layout">
+      <div class="tool-panel">
+        <h2>Upload PDF</h2>
+        <div id="protectDrop" class="upload-zone"><div><strong>Choose one PDF</strong><span>Downloads as a .visafy encrypted vault</span></div></div>
+        <input id="protectInput" class="hidden-input" type="file" accept=".pdf,application/pdf">
+        <div id="protectList" class="file-list"></div>
+        <div class="controls">
+          <div class="note">The allowed PDF library cannot create native password-protected PDFs. This page creates a real encrypted vault you can decrypt with Visafy's Unlock tool.</div>
+          <div class="form-group"><label for="protectPassword">Password</label><input id="protectPassword" type="password" autocomplete="new-password"></div>
+          <div class="form-group"><label for="protectConfirm">Confirm password</label><input id="protectConfirm" type="password" autocomplete="new-password"></div>
+          <button id="protectButton" class="btn" type="button">Create Protected Vault</button>
+        </div>
+      </div>
+      <div class="preview-panel"><h2>Status</h2><div class="status-box"><strong id="protectStatus">No PDF selected.</strong><span>Keep the password; it cannot be recovered.</span></div></div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container">© 2025 Visafy. All rights reserved.</div></footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
