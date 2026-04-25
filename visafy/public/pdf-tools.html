@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Tools | Visafy</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Visafy</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/photo-editor.html">Photo Editor</a></li>
+            <li><a href="/pdf-tools.html" class="active">PDF Tools</a></li>
+            <li><a href="/country-checklist.html">Checklists</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h2>PDF Tools</h2>
+        <p>Prepare your application packets by merging or compressing PDF files.</p>
+        
+        <div class="services-grid">
+            <div class="tool-card">
+                <h3>Merge PDFs</h3>
+                <input type="file" multiple accept="application/pdf" id="mergeUpload">
+                <button class="btn">Merge Files</button>
+            </div>
+            <div class="tool-card">
+                <h3>Compress PDF</h3>
+                <input type="file" accept="application/pdf" id="compressUpload">
+                <button class="btn">Compress File</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
