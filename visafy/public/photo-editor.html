@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Editor | Visafy</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Visafy</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/photo-editor.html" class="active">Photo Editor</a></li>
+            <li><a href="/pdf-tools.html">PDF Tools</a></li>
+            <li><a href="/country-checklist.html">Checklists</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h2>Passport Photo Editor</h2>
+        <p>Upload a photo to crop and resize it for your visa application.</p>
+        
+        <div class="tool-panel">
+            <div class="upload-area">
+                <input type="file" id="photoUpload" accept="image/png, image/jpeg">
+                <label for="photoUpload" class="btn">Upload Image</label>
+            </div>
+            
+            <div class="editor-workspace">
+                <div class="placeholder-box">
+                    <p>Image Workspace</p>
+                    <small>Frontend JS canvas logic will go here</small>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn success">Download Photo</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
