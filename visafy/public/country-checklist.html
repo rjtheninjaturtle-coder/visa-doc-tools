@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Checklists | Visafy</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Visafy</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/photo-editor.html">Photo Editor</a></li>
+            <li><a href="/pdf-tools.html">PDF Tools</a></li>
+            <li><a href="/country-checklist.html" class="active">Checklists</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h2>Visa Document Checklists</h2>
+        <p>Select your destination to see the required documentation.</p>
+        
+        <div class="tool-panel">
+            <select id="countrySelect" class="dropdown">
+                <option value="">-- Select a Country --</option>
+                <option value="us">United States (B1/B2)</option>
+                <option value="uk">United Kingdom (Standard Visitor)</option>
+                <option value="schengen">Schengen Area (Tourist)</option>
+            </select>
+
+            <div id="checklistResult" class="checklist-display">
+                </div>
+        </div>
+    </main>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
