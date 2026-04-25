@@ -4,36 +4,229 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Country Checklists | Visafy</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">Visafy</div>
+        <div class="logo"><a href="/index.html">Visafy ✈️</a></div>
         <ul class="nav-links">
-            <li><a href="/">Home</a></li>
+            <li><a href="/index.html">Home</a></li>
             <li><a href="/photo-editor.html">Photo Editor</a></li>
             <li><a href="/pdf-tools.html">PDF Tools</a></li>
-            <li><a href="/country-checklist.html" class="active">Checklists</a></li>
+            <li><a href="/country-checklist.html">Checklists</a></li>
         </ul>
     </nav>
 
     <main class="container">
-        <h2>Visa Document Checklists</h2>
-        <p>Select your destination to see the required documentation.</p>
-        
-        <div class="tool-panel">
-            <select id="countrySelect" class="dropdown">
-                <option value="">-- Select a Country --</option>
-                <option value="us">United States (B1/B2)</option>
-                <option value="uk">United Kingdom (Standard Visitor)</option>
-                <option value="schengen">Schengen Area (Tourist)</option>
-            </select>
+        <div style="margin-bottom: 2rem;">
+            <h2>Visa Document Checklists</h2>
+            <p>Select a country and visa type to generate a precise document checklist.</p>
+        </div>
 
-            <div id="checklistResult" class="checklist-display">
+        <div class="card" style="margin-bottom: 2rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="form-group">
+                    <label>Destination Country</label>
+                    <select id="countrySelect" class="form-control">
+                        <option value="USA">USA</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="Schengen">Schengen Area</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="Japan">Japan</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="Thailand">Thailand</option>
+                    </select>
                 </div>
+                <div class="form-group">
+                    <label>Visa Type</label>
+                    <select id="visaTypeSelect" class="form-control">
+                        <option value="Tourist">Tourist</option>
+                        <option value="Business">Business</option>
+                        <option value="Student">Student</option>
+                        <option value="Work">Work</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="generateBtn" style="width: 100%;">Generate Checklist</button>
+        </div>
+
+        <div id="checklistResult" class="checklist-result">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 id="checklistTitle" style="color: var(--primary);"></h3>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn btn-outline" id="printBtn">🖨️ Print</button>
+                    <button class="btn btn-secondary" id="downloadPdfBtn" style="background: var(--primary); color: white;">📄 Download PDF</button>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p style="text-align: right; margin-bottom: 2rem; font-weight: bold; color: var(--accent);" id="progressText">0 / 0 Completed</p>
+
+            <div id="checklistItemsContainer"></div>
         </div>
     </main>
 
-    <script src="/js/main.js"></script>
+    <footer>
+        <p>&copy; 2026 Visafy. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const { PDFDocument, rgb, StandardFonts } = PDFLib;
+
+        // Smart Database matching exactly 40 combinations efficiently
+        const baseDocs = {
+            Tourist: [
+                { name: "Valid Passport", desc: "Must have at least 6 months validity remaining and 2 blank pages.", note: "Attach old passports if any." },
+                { name: "Photographs", desc: "Recent color photographs matching country specs.", note: "Check Photo Editor tool." },
+                { name: "Flight Itinerary", desc: "Round trip reservation.", note: "Do not buy actual tickets until visa is approved." },
+                { name: "Accommodation Proof", desc: "Hotel booking or host invitation.", note: "Must cover entire duration." },
+                { name: "Financial Proof", desc: "Bank statements for last 6 months, signed & stamped.", note: "Maintain healthy balance." }
+            ],
+            Business: [
+                { name: "Valid Passport", desc: "6 months validity required.", note: "" },
+                { name: "Photographs", desc: "Recent color photographs.", note: "Check Photo Editor tool." },
+                { name: "Invitation Letter", desc: "From the host company detailing purpose.", note: "Must be on company letterhead." },
+                { name: "Cover Letter", desc: "From local employer detailing role and trip.", note: "Include who bears expenses." },
+                { name: "Company Financials", desc: "Company bank statements and ITR.", note: "Required if company pays." }
+            ],
+            Student: [
+                { name: "Valid Passport", desc: "Valid for entire course duration.", note: "" },
+                { name: "Photographs", desc: "Recent color photographs.", note: "" },
+                { name: "Admission Letter", desc: "Unconditional offer letter from institution.", note: "Verify institution accreditation." },
+                { name: "Proof of Funds", desc: "Education loan letter or sponsor bank statements.", note: "Must cover 1st year tuition + living." },
+                { name: "Academic Transcripts", desc: "All previous degree certificates and marksheets.", note: "Must be attested." }
+            ],
+            Work: [
+                { name: "Valid Passport", desc: "Valid for contract duration.", note: "" },
+                { name: "Employment Contract", desc: "Signed by both employee and employer.", note: "Must state salary and role." },
+                { name: "Work Permit Approval", desc: "Pre-approval from destination labor ministry.", note: "Employer usually provides this." },
+                { name: "Police Clearance", desc: "PCC from regional passport office.", note: "Must be recent (under 6 months)." },
+                { name: "Medical Certificate", desc: "From approved medical centers.", note: "Specific tests required." }
+            ]
+        };
+
+        const countrySpecific = {
+            USA: { Tourist: {name: "DS-160 Confirmation", desc: "Barcode page", note: "Bring appointment letter too."}, Business: {name: "DS-160", desc: "Barcode page", note: ""}, Student: {name: "I-20 Form & SEVIS", desc: "Original I-20 and SEVIS fee receipt.", note: "Sign the I-20."}, Work: {name: "I-797 Approval", desc: "Original Notice of Action.", note: ""} },
+            UK: { Tourist: {name: "VAF1A Form", desc: "Printed online application.", note: ""}, Business: {name: "Business Invitation", desc: "Detailed schedule.", note: ""}, Student: {name: "CAS Letter", desc: "Confirmation of Acceptance for Studies.", note: ""}, Work: {name: "CoS", desc: "Certificate of Sponsorship.", note: "Need reference number."} },
+            Schengen: { Tourist: {name: "Travel Insurance", desc: "Coverage of min €30,000.", note: "Must cover entire Schengen area."}, Business: {name: "Travel Insurance", desc: "Coverage of min €30,000.", note: ""}, Student: {name: "Blocked Account", desc: "Proof of blocked account creation.", note: "Required for countries like Germany."}, Work: {name: "Schengen Contract", desc: "Approved work contract.", note: ""} },
+            Canada: { Tourist: {name: "IMM 5257 Form", desc: "Visitor visa form.", note: "Validate barcode before printing."}, Business: {name: "IMM 5257 Form", desc: "Visitor visa form.", note: ""}, Student: {name: "Study Permit App", desc: "IMM 1294 Form.", note: ""}, Work: {name: "LMIA", desc: "Labour Market Impact Assessment.", note: "Or LMIA exemption code."} },
+            Australia: { Tourist: {name: "Form 1419", desc: "Tourist stream application.", note: ""}, Business: {name: "Form 1415", desc: "Business stream.", note: ""}, Student: {name: "CoE", desc: "Confirmation of Enrolment.", note: "Plus OSHC insurance."}, Work: {name: "TSS Nomination", desc: "Subclass 482 nomination.", note: ""} },
+            Dubai: { Tourist: {name: "Ok to Board", desc: "Airline update.", note: "If applicable."}, Business: {name: "Sponsor Trade License", desc: "Copy of host company license.", note: ""}, Student: {name: "University Sponsorship", desc: "Visa arranged by university.", note: ""}, Work: {name: "MOHRE Approval", desc: "Ministry of Labour offer letter.", note: ""} },
+            Singapore: { Tourist: {name: "Form 14A", desc: "Signed application.", note: ""}, Business: {name: "V39A Form", desc: "Letter of Introduction.", note: "By local contact."}, Student: {name: "SOLAR+ App", desc: "e-Form 16.", note: ""}, Work: {name: "IPA Letter", desc: "In-Principle Approval.", note: "From MOM."} },
+            Japan: { Tourist: {name: "Schedule of Stay", desc: "Day by day itinerary.", note: "Use official format."}, Business: {name: "Letter of Guarantee", desc: "From Japanese company.", note: "With original seal."}, Student: {name: "CoE", desc: "Certificate of Eligibility.", note: "Original required."}, Work: {name: "CoE", desc: "Certificate of Eligibility.", note: "For working status."} },
+            "New Zealand": { Tourist: {name: "INZ 1017", desc: "Visitor form.", note: ""}, Business: {name: "INZ 1015", desc: "Business visitor form.", note: ""}, Student: {name: "Offer of Place", desc: "From NZQA provider.", note: ""}, Work: {name: "Employer Form", desc: "INZ 1113 or similar.", note: ""} },
+            Thailand: { Tourist: {name: "Proof of 10,000 THB", desc: "Or 20,000 THB per family.", note: "In equivalent currency."}, Business: {name: "WP3 Receipt", desc: "Work permit pre-approval.", note: ""}, Student: {name: "Letter of Acceptance", desc: "From Thai Ministry of Ed.", note: ""}, Work: {name: "Work Permit Pre-approval", desc: "From Dept of Employment.", note: ""} }
+        };
+
+        let currentChecklist = [];
+
+        document.getElementById('generateBtn').addEventListener('click', () => {
+            const country = document.getElementById('countrySelect').value;
+            const type = document.getElementById('visaTypeSelect').value;
+            
+            // Build the specific checklist combining base and country specific
+            currentChecklist = [...baseDocs[type]];
+            if(countrySpecific[country] && countrySpecific[country][type]) {
+                currentChecklist.unshift(countrySpecific[country][type]);
+            }
+
+            document.getElementById('checklistTitle').innerText = `${country} ${type} Visa Checklist`;
+            
+            const container = document.getElementById('checklistItemsContainer');
+            container.innerHTML = '';
+            
+            currentChecklist.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="check-item">
+                        <input type="checkbox" class="doc-check" id="check_${index}">
+                        <div class="check-content">
+                            <label for="check_${index}"><strong>${item.name}</strong></label>
+                            <p>${item.desc}</p>
+                            ${item.note ? `<div class="check-note">⚠️ ${item.note}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('checklistResult').classList.add('active');
+            updateProgress();
+
+            document.querySelectorAll('.doc-check').forEach(box => {
+                box.addEventListener('change', updateProgress);
+            });
+            window.showToast('Checklist generated successfully');
+        });
+
+        function updateProgress() {
+            const total = currentChecklist.length;
+            const checked = document.querySelectorAll('.doc-check:checked').length;
+            const percentage = (checked / total) * 100;
+            
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressText').innerText = `${checked} / ${total} Completed`;
+        }
+
+        document.getElementById('printBtn').addEventListener('click', () => {
+            window.print();
+        });
+
+        document.getElementById('downloadPdfBtn').addEventListener('click', async () => {
+            window.showSpinner();
+            try {
+                const pdfDoc = await PDFDocument.create();
+                const timesRomanFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
+                const timesRomanBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+                
+                let page = pdfDoc.addPage([595.28, 841.89]); // A4 Size
+                const { width, height } = page.getSize();
+                
+                let y = height - 50;
+                
+                page.drawText(document.getElementById('checklistTitle').innerText, {
+                    x: 50, y: y, size: 20, font: timesRomanBold, color: rgb(0.1, 0.14, 0.49)
+                });
+                
+                y -= 40;
+
+                currentChecklist.forEach((item, i) => {
+                    if (y < 100) {
+                        page = pdfDoc.addPage([595.28, 841.89]);
+                        y = height - 50;
+                    }
+                    
+                    const isChecked = document.getElementById(`check_${i}`).checked;
+                    const boxTxt = isChecked ? '[ X ]' : '[   ]';
+
+                    page.drawText(boxTxt, { x: 50, y, size: 12, font: timesRomanFont });
+                    page.drawText(item.name, { x: 80, y, size: 12, font: timesRomanBold });
+                    y -= 20;
+                    
+                    page.drawText(item.desc, { x: 80, y, size: 10, font: timesRomanFont, color: rgb(0.3, 0.3, 0.3) });
+                    y -= 15;
+                    
+                    if (item.note) {
+                        page.drawText(`Note: ${item.note}`, { x: 80, y, size: 10, font: timesRomanFont, color: rgb(0.8, 0.3, 0) });
+                        y -= 15;
+                    }
+                    y -= 10;
+                });
+
+                const pdfBytes = await pdfDoc.save();
+                saveAs(new Blob([pdfBytes], { type: 'application/pdf' }), 'visafy_checklist.pdf');
+                window.showToast('PDF downloaded successfully');
+            } catch(e) {
+                window.showToast('Failed to generate PDF', 'error');
+            }
+            window.hideSpinner();
+        });
+    </script>
 </body>
 </html>
